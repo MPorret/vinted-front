@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import tear from "../assets/tear-d431548c90905ad757632e4c3075d9473e38c7c6642721efeae9413afb9387a2.svg";
 
 import Loading from "./Loading";
 
@@ -30,10 +31,7 @@ const Home = () => {
           src="https://static.vinted.com/assets/seller-promotion/other/banner-tablets-up-afe3d19776592a72f165c1bb93fd02c5528250a8c670ecc1656654323f9d4856.jpg"
           alt="Dressing avec une femme souriante"
         />
-        <img
-          src={require("../assets/tear-d431548c90905ad757632e4c3075d9473e38c7c6642721efeae9413afb9387a2.svg")}
-          className="tear"
-        />
+        <img src={tear} className="tear" />
         <div>
           <h1>Prêts à faire du tri dans vos placards ?</h1>
           <Link>Commencer à vendre</Link>
