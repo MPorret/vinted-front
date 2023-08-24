@@ -21,8 +21,6 @@ const Home = () => {
     fetchData();
   }, []);
 
-  console.log(data);
-
   return isLoading ? (
     <Loading />
   ) : (
@@ -60,12 +58,10 @@ const Home = () => {
                   <img src={product_image.secure_url} alt="" />
                   <div>
                     <p>{product_price} €</p>
-                    {product_details.map((detail) => {
+                    {product_details.map((detail, index) => {
                       if (detail.MARQUE || detail.TAILLE) {
                         return (
-                          <p key={detail.MARQUE}>
-                            {detail.MARQUE || detail.TAILLE}
-                          </p>
+                          <p key={index}>{detail.MARQUE || detail.TAILLE}</p>
                         );
                       } else {
                         return null;
