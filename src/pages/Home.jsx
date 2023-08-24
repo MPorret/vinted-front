@@ -21,6 +21,8 @@ const Home = () => {
     fetchData();
   }, []);
 
+  console.log(data);
+
   return isLoading ? (
     <Loading />
   ) : (
@@ -31,7 +33,7 @@ const Home = () => {
           src="https://static.vinted.com/assets/seller-promotion/other/banner-tablets-up-afe3d19776592a72f165c1bb93fd02c5528250a8c670ecc1656654323f9d4856.jpg"
           alt="Dressing avec une femme souriante"
         />
-        <img src={tear} className="tear" />
+        <img src={tear} alt="tear" className="tear" />
         <div>
           <h1>Prêts à faire du tri dans vos placards ?</h1>
           <Link>Commencer à vendre</Link>
@@ -58,10 +60,17 @@ const Home = () => {
                   <img src={product_image.secure_url} alt="" />
                   <div>
                     <p>{product_price} €</p>
-                    {/* <p>prix inclus</p>
-                    <p>taille</p> */}
-                    <p>{product_details["0"].MARQUE}</p>
-                    {/* <i>likes</i> */}
+                    {product_details.map((detail) => {
+                      if (detail.MARQUE || detail.TAILLE) {
+                        return (
+                          <p key={detail.MARQUE}>
+                            {detail.MARQUE || detail.TAILLE}
+                          </p>
+                        );
+                      } else {
+                        return null;
+                      }
+                    })}
                   </div>
                 </article>
               </Link>
