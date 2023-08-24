@@ -64,19 +64,22 @@ header {
 header img {
   width: 73px;
 }
-header > a {
+header > a,
+header button {
   width: 150px;
   padding: 5px;
   border-radius: 5px;
   text-align: center;
 }
-header > a:nth-child(3) {
+header > button:first-of-type {
   border: 1px solid var(--vinted-blue);
   color: var(--vinted-blue);
 }
-header > a:nth-child(n+4) {
+header > a:last-of-type,
+header button:last-of-type {
   background-color: var(--vinted-blue);
   color: #ffffff;
+  border: none;
 }
 
 /* HOME */
@@ -208,4 +211,76 @@ aside a:nth-of-type(n + 2) {
 aside a:nth-of-type(1) {
   background-color: var(--vinted-blue);
   color: #ffffff;
+}
+
+.modal {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.25);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal form {
+  background-color: #ffffff;
+  padding: 20px 10px;
+  border-radius: 10px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+.modal input:not(#newsletter) {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--vinted-blue);
+  width: 80%;
+}
+.modal h3 {
+  font-size: 2.4rem;
+  color: var(--vinted-blue);
+  font-weight: bold;
+  text-align: center;
+}
+.modal button:first-of-type {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ffffff;
+  border: none;
+  font-weight: bold;
+}
+.modal button:last-of-type {
+  background-color: #ffffff;
+  border: none;
+}
+.modal button:not(:first-of-type, :last-of-type) {
+  border-radius: 10px;
+  background-color: var(--vinted-blue);
+  padding: 10px 30px;
+  color: #ffffff;
+  border: none;
+}
+.modal div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.modal p,
+.modal button:last-of-type {
+  color: var(--grey);
+  font-size: 12px;
+  padding: 0 20px;
+  text-align: center;
+}
+.modal button:last-of-type:hover {
+  color: var(--vinted-blue);
+  transition: 25ms;
 }/*# sourceMappingURL=App.css.map */

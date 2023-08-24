@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-const Header = () => {
+const Header = ({ visible, setVisible }) => {
   const navigate = useNavigate();
   return (
     <header>
@@ -11,18 +11,34 @@ const Header = () => {
       <input placeholder="Recherche des articles"></input>
       {!Cookies.get("token") ? (
         <>
-          <Link to="/signup">S'inscrire</Link>
-          <Link to="/login">Se connecter</Link>
+          <button
+            onClick={() => {
+              const newVisible = [...visible];
+              newVisible[0] = !newVisible[0];
+              setVisible(newVisible);
+            }}
+          >
+            S'inscrire
+          </button>
+          <button
+            onClick={() => {
+              const newVisible = [...visible];
+              newVisible[1] = !newVisible[1];
+              setVisible(newVisible);
+            }}
+          >
+            Se connecter
+          </button>
         </>
       ) : (
-        <a
+        <button
           onClick={() => {
             Cookies.remove("token");
             navigate("/");
           }}
         >
           Se déconnecter
-        </a>
+        </button>
       )}
       <Link>Vends tes articles</Link>
     </header>

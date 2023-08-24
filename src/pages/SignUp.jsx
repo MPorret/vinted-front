@@ -3,7 +3,7 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 
-const SignUp = () => {
+const SignUp = ({ setVisible, visible }) => {
   const navigate = useNavigate();
 
   const [data, setData] = useState({
@@ -36,21 +36,33 @@ const SignUp = () => {
   };
 
   const signUp = async () => {
-    const response = await axios.post(
-      "https://lereacteur-vinted-api.herokuapp.com/user/signup",
-      data
-    );
-    Cookies.set("token", response.data.token, { expires: 14 });
+    try {
+      const response = await axios.post(
+        "https://lereacteur-vinted-api.herokuapp.com/user/signup",
+        data
+      );
+      Cookies.set("token", response.data.token, { expires: 14 });
+      closeModal();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const closeModal = () => {
+    const newVisible = [...visible];
+    newVisible[0] = false;
+    setVisible(newVisible);
   };
 
   return (
-    <main>
-      <h1>S'inscrire</h1>
+    <div className="modal">
       <form
         onSubmit={(event) => {
           event.preventDefault();
         }}
       >
+        <button onClick={closeModal}>X</button>
+        <h3>S'inscrire</h3>
         <input
           type="text"
           name="username"
@@ -81,33 +93,42 @@ const SignUp = () => {
             handleChange(event, { action: "password" });
           }}
         />
-        <input
-          type="checkbox"
-          name="newsletter"
-          id="newsletter"
-          checked={data.newsletter}
-          onChange={(event) => {
-            handleChange(event, { action: "newsletter" });
-          }}
-        />
-        <label htmlFor="newsletter">S'inscrire à la newsletter</label>
+        <div>
+          <input
+            type="checkbox"
+            name="newsletter"
+            id="newsletter"
+            checked={data.newsletter}
+            onChange={(event) => {
+              handleChange(event, { action: "newsletter" });
+            }}
+          />
+          <label htmlFor="newsletter">S'inscrire à la newsletter</label>
+        </div>
         <p>
           En m'inscrivant je confirme avoir lu et accepté les Termes &
-          Confitions et Potilique de Confidentialité de Vinted. Je confirme
+          Conditions et Potilique de Confidentialité de Vinted. Je confirme
           avoir au moins 18 ans.
         </p>
         <button
           onClick={() => {
             signUp();
-            alert("Vous avez bien été inscrit");
-            navigate("/");
           }}
         >
           S'inscrire
         </button>
+        <button
+          onClick={() => {
+            const newVisible = [...visible];
+            newVisible[1] = !newVisible[1];
+            newVisible[0] = false;
+            setVisible(newVisible);
+          }}
+        >
+          Tu as déjà un compte ? Connecte-toi !
+        </button>
       </form>
-      <Link to="/login">Tu as déjà un compte ? Connecte-toi !</Link>
-    </main>
+    </div>
   );
 };
 

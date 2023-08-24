@@ -3,7 +3,7 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 
-const LogIn = () => {
+const LogIn = ({ setVisible, visible }) => {
   const navigate = useNavigate();
 
   const [data, setData] = useState({
@@ -28,21 +28,33 @@ const LogIn = () => {
   };
 
   const logIn = async () => {
-    const response = await axios.post(
-      "https://lereacteur-vinted-api.herokuapp.com/user/login",
-      data
-    );
-    Cookies.set("token", response.data.token, { expires: 14 });
+    try {
+      const response = await axios.post(
+        "https://lereacteur-vinted-api.herokuapp.com/user/login",
+        data
+      );
+      Cookies.set("token", response.data.token, { expires: 14 });
+      closeModal();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const closeModal = () => {
+    const newVisible = [...visible];
+    newVisible[1] = false;
+    setVisible(newVisible);
   };
 
   return (
-    <main>
-      <h1>Se connecter</h1>
+    <div className="modal">
       <form
         onSubmit={(event) => {
           event.preventDefault();
         }}
       >
+        <button onClick={closeModal}>X</button>
+        <h3>Se connecter</h3>
         <input
           type="email"
           name="email"
@@ -66,15 +78,22 @@ const LogIn = () => {
         <button
           onClick={() => {
             logIn();
-            alert("Vous avez bien été inscrit");
-            navigate("/");
           }}
         >
           Se connecter
         </button>
+        <button
+          onClick={() => {
+            const newVisible = [...visible];
+            newVisible[0] = !newVisible[0];
+            newVisible[1] = false;
+            setVisible(newVisible);
+          }}
+        >
+          Pas encore inscrit ? C'est ici !
+        </button>
       </form>
-      <Link to="/signup">Pas encore inscrit ? C'est ici !</Link>
-    </main>
+    </div>
   );
 };
 
