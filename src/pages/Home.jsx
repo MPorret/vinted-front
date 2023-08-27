@@ -3,28 +3,45 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import tear from "../assets/tear-d431548c90905ad757632e4c3075d9473e38c7c6642721efeae9413afb9387a2.svg";
 
-import Loading from "./Loading";
+import "../assets/styles/home.scss";
 
-const Home = () => {
+import Loading from "./Loading";
+import Filters from "../components/Filters";
+
+const Home = ({ search }) => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchData = async () => {
-    const response = await axios.get(
-      "https://lereacteur-vinted-api.herokuapp.com/offers"
-    );
-    setData(response.data.offers);
-    setIsLoading(false);
-  };
+  const [sort, setSort] = useState(false);
+  const [price, setPrice] = useState({ values: [0, 100] });
 
   useEffect(() => {
+    const fetchData = () => {
+      try {
+        const timer = setTimeout(async () => {
+          const response = await axios.get(
+            `https://site--vinted-backend--hxhcg25qdky2.code.run/offers?page=1&sort=${
+              !sort ? "asc" : "desc"
+            }&priceMin=${price.values[0]}&priceMax=${
+              price.values[1]
+            }&search=${search}`
+          );
+          setData(response.data);
+          setIsLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
     fetchData();
-  }, []);
+  }, [sort, price, search]);
 
   return isLoading ? (
     <Loading />
   ) : (
-    <main>
+    <main className="home">
       {/* Banner */}
       <div>
         <img
@@ -38,6 +55,14 @@ const Home = () => {
         </div>
       </div>
       {/* List of products */}
+      <section>
+        <Filters
+          sort={sort}
+          setSort={setSort}
+          price={price}
+          setPrice={setPrice}
+        />
+      </section>
       <section className="allproducts">
         {data.map(
           ({ _id, product_price, product_details, product_image, owner }) => {
@@ -55,7 +80,7 @@ const Home = () => {
 
                     <span>{owner.account.username}</span>
                   </div>
-                  <img src={product_image.secure_url} alt="" />
+                  <img src={product_image["0"].secure_url} alt="" />
                   <div>
                     <p>{product_price} €</p>
                     {product_details.map((detail, index) => {

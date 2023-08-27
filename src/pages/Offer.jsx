@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import "../assets/styles/offer.scss";
+
 import Loading from "./Loading";
 
 const Offer = () => {
@@ -12,28 +14,32 @@ const Offer = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(
-        `https://lereacteur-vinted-api.herokuapp.com/offer/${id}`
-      );
-      setData(response.data);
-      setIsLoading(false);
-    };
+    try {
+      const fetchData = async () => {
+        const response = await axios.get(
+          `https://site--vinted-backend--hxhcg25qdky2.code.run/offer/${id}`
+        );
+        setData(response.data);
+        setIsLoading(false);
+      };
 
-    fetchData();
+      fetchData();
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
   }, [id]);
 
   return isLoading ? (
     <Loading />
   ) : (
-    <main className="offer">
+    <main>
       <section className="carousel">
-        {data.product_pictures.lenght !== 1 ? (
-          data.product_pictures.map(({ secure_url }) => {
+        {data.product_image.lenght !== 1 ? (
+          data.product_image.map(({ secure_url }) => {
             return <img key={secure_url} src={secure_url} alt="" />;
           })
         ) : (
-          <img src={data.product_pictures[0].secure_url} alt="" />
+          <img src={data.product_image[0].secure_url} alt="" />
         )}
       </section>
       <aside>

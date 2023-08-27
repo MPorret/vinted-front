@@ -1,0 +1,65 @@
+// OFFER
+main.offer {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  width: 1024px;
+}
+
+.carousel {
+  flex: 1;
+  display: flex;
+  overflow: scroll;
+  height: 600px;
+
+  img {
+    flex: 1;
+  }
+}
+
+aside {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 20px;
+
+  section {
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    gap: 15px;
+  }
+
+  section:not(:first-of-type) {
+    border-top: 1px solid #ececec;
+    color: var(--grey);
+  }
+
+  section:nth-of-type(2) > div {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  div > span:last-of-type {
+    text-align: right;
+  }
+
+  & a {
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  & a:nth-of-type(n + 2) {
+    border: 1px solid var(--vinted-blue);
+    color: var(--vinted-blue);
+  }
+
+  & a:nth-of-type(1) {
+    background-color: var(--vinted-blue);
+    color: #ffffff;
+  }
+}

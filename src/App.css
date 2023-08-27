@@ -53,6 +53,7 @@ img {
 header {
   background-color: #ffffff;
   position: fixed;
+  padding: 0 calc((100vw - 1024px) / 2);
   top: 0;
   height: 52px;
   width: 100%;
@@ -65,152 +66,29 @@ header img {
   width: 73px;
 }
 header > a,
-header button {
+header button,
+header input {
   width: 150px;
-  padding: 5px;
-  border-radius: 5px;
+  padding: 10px;
+  border-radius: 10px;
   text-align: center;
+}
+header input {
+  border: none;
+  width: 300px;
+  text-align: left;
+  background-color: #ececec;
 }
 header > button:first-of-type {
   border: 1px solid var(--vinted-blue);
   color: var(--vinted-blue);
+  background-color: #ffffff;
 }
 header > a:last-of-type,
 header button:last-of-type {
   background-color: var(--vinted-blue);
   color: #ffffff;
   border: none;
-}
-
-/* HOME */
-main {
-  max-width: 1024px;
-}
-main > div:first-child {
-  height: 50vh;
-  position: relative;
-  overflow: hidden;
-}
-main > div:first-child > div {
-  width: 40%;
-  position: absolute;
-  top: 16.6666666667vh;
-  left: 50px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-}
-main > div:first-child a {
-  background-color: var(--vinted-blue);
-  color: #ffffff;
-  margin-top: 20px;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.tear {
-  position: absolute;
-  width: 600px;
-  bottom: 0;
-  right: 0;
-}
-
-.allproducts {
-  max-width: 1024px;
-  padding-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px;
-  background-color: #ffffff;
-}
-.allproducts > a {
-  width: calc(25% - 20px);
-}
-
-article > div:first-child {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  font-size: 10px;
-  gap: 10px;
-  justify-content: center;
-}
-article > img:first-of-type {
-  width: 100%;
-  height: 290px;
-}
-article p:not(:first-of-type) {
-  color: var(--grey);
-}
-article p {
-  margin: 5px 5px;
-}
-
-.avatar {
-  width: 20px;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-}
-
-main.offer {
-  margin-top: 20px;
-  display: flex;
-  gap: 20px;
-  width: 1024px;
-}
-
-.carousel {
-  flex: 1;
-  display: flex;
-  overflow: scroll;
-  height: 600px;
-}
-.carousel img {
-  flex: 1;
-}
-
-aside {
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  padding: 20px;
-}
-aside section {
-  display: flex;
-  flex-direction: column;
-  padding-top: 15px;
-  gap: 15px;
-}
-aside section:not(:first-of-type) {
-  border-top: 1px solid #ececec;
-  color: var(--grey);
-}
-aside section:nth-of-type(2) > div {
-  display: flex;
-  justify-content: space-between;
-}
-aside div > span:last-of-type {
-  text-align: right;
-}
-aside a {
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-}
-aside a:nth-of-type(n + 2) {
-  border: 1px solid var(--vinted-blue);
-  color: var(--vinted-blue);
-}
-aside a:nth-of-type(1) {
-  background-color: var(--vinted-blue);
-  color: #ffffff;
 }
 
 .modal {
@@ -249,7 +127,7 @@ aside a:nth-of-type(1) {
   font-weight: bold;
   text-align: center;
 }
-.modal button:first-of-type {
+.modal .close {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -257,11 +135,14 @@ aside a:nth-of-type(1) {
   border: none;
   font-weight: bold;
 }
-.modal button:last-of-type {
+.modal .close:hover {
+  cursor: pointer;
+}
+.modal button {
   background-color: #ffffff;
   border: none;
 }
-.modal button:not(:first-of-type, :last-of-type) {
+.modal button:first-of-type {
   border-radius: 10px;
   background-color: var(--vinted-blue);
   padding: 10px 30px;

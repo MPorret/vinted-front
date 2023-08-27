@@ -1,17 +1,16 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import axios from "axios";
 
-const SignUp = ({ setVisible, visible }) => {
-  const navigate = useNavigate();
-
+const SignUp = ({ handleToken, isVisible }) => {
   const [data, setData] = useState({
     username: "",
     email: "",
     password: "",
     newsletter: false,
   });
+
+  const [errorMessage, setErrorMessage] = useState();
 
   const handleChange = (event, { action }) => {
     const newData = { ...data };
@@ -38,20 +37,22 @@ const SignUp = ({ setVisible, visible }) => {
   const signUp = async () => {
     try {
       const response = await axios.post(
-        "https://lereacteur-vinted-api.herokuapp.com/user/signup",
+        "https://site--vinted-backend--hxhcg25qdky2.code.run/user/signup",
         data
       );
-      Cookies.set("token", response.data.token, { expires: 14 });
-      closeModal();
+      handleToken(response.data.token);
+      isVisible("0");
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.response.data);
+      if (error.response.data.message === "Email already existing") {
+        // Je met à jour mon state errorMessage
+        setErrorMessage(
+          "Ce mail est déjà utilisé, veuillez en choisir un autre :)"
+        );
+      } else if (error.response.data.message === "Please, complete the form") {
+        setErrorMessage("Veuillez remplir tous les champs :)");
+      }
     }
-  };
-
-  const closeModal = () => {
-    const newVisible = [...visible];
-    newVisible[0] = false;
-    setVisible(newVisible);
   };
 
   return (
@@ -61,7 +62,14 @@ const SignUp = ({ setVisible, visible }) => {
           event.preventDefault();
         }}
       >
-        <button onClick={closeModal}>X</button>
+        <div
+          className="close"
+          onClick={() => {
+            isVisible("0");
+          }}
+        >
+          X
+        </div>
         <h3>S'inscrire</h3>
         <input
           type="text"
@@ -117,12 +125,10 @@ const SignUp = ({ setVisible, visible }) => {
         >
           S'inscrire
         </button>
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         <button
           onClick={() => {
-            const newVisible = [...visible];
-            newVisible[1] = !newVisible[1];
-            newVisible[0] = false;
-            setVisible(newVisible);
+            isVisible("0");
           }}
         >
           Tu as déjà un compte ? Connecte-toi !

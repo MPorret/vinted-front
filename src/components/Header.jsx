@@ -1,30 +1,31 @@
-import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
-const Header = ({ visible, setVisible }) => {
-  const navigate = useNavigate();
+const Header = ({ token, handleToken, isVisible, search, setSearch }) => {
   return (
     <header>
       <Link to="/">
         <img src="/Vinted_logo.png" alt="" />
       </Link>
-      <input placeholder="Recherche des articles"></input>
-      {!Cookies.get("token") ? (
+      <input
+        placeholder="Recherche des articles"
+        value={search}
+        onChange={(event) => {
+          setSearch(event.target.value);
+        }}
+      ></input>
+      {!token ? (
         <>
           <button
             onClick={() => {
-              const newVisible = [...visible];
-              newVisible[0] = !newVisible[0];
-              setVisible(newVisible);
+              isVisible("0");
             }}
           >
             S'inscrire
           </button>
           <button
             onClick={() => {
-              const newVisible = [...visible];
-              newVisible[1] = !newVisible[1];
-              setVisible(newVisible);
+              isVisible("1");
             }}
           >
             Se connecter
@@ -33,8 +34,7 @@ const Header = ({ visible, setVisible }) => {
       ) : (
         <button
           onClick={() => {
-            Cookies.remove("token");
-            navigate("/");
+            handleToken();
           }}
         >
           Se déconnecter

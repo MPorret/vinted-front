@@ -1,15 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import axios from "axios";
 
-const LogIn = ({ setVisible, visible }) => {
-  const navigate = useNavigate();
-
+const LogIn = ({ handleToken, isVisible }) => {
   const [data, setData] = useState({
     email: "",
     password: "",
   });
+
+  const [errorMessage, setErrorMessage] = useState();
 
   const handleChange = (event, { action }) => {
     const newData = { ...data };
@@ -30,20 +29,28 @@ const LogIn = ({ setVisible, visible }) => {
   const logIn = async () => {
     try {
       const response = await axios.post(
-        "https://lereacteur-vinted-api.herokuapp.com/user/login",
+        "https://site--vinted-backend--hxhcg25qdky2.code.run/user/login",
         data
       );
-      Cookies.set("token", response.data.token, { expires: 14 });
-      closeModal();
+      handleToken(response.data.token);
+      isVisible("1");
     } catch (error) {
-      console.log(error.message);
-    }
-  };
+      // console.log(error.response.data);
 
-  const closeModal = () => {
-    const newVisible = [...visible];
-    newVisible[1] = false;
-    setVisible(newVisible);
+      switch (error.response.data.message) {
+        case "Please, complete email and password fields":
+          setErrorMessage("Veuillez remplir tous les champs :)");
+          break;
+        case "Incorrect password or email":
+          setErrorMessage("Email ou mot de passe incorrect");
+          break;
+        case "Incorrect email or password":
+          setErrorMessage("Email ou mot de passe incorrect");
+          break;
+        default:
+          break;
+      }
+    }
   };
 
   return (
@@ -53,7 +60,14 @@ const LogIn = ({ setVisible, visible }) => {
           event.preventDefault();
         }}
       >
-        <button onClick={closeModal}>X</button>
+        <div
+          className="close"
+          onClick={() => {
+            isVisible("1");
+          }}
+        >
+          X
+        </div>
         <h3>Se connecter</h3>
         <input
           type="email"
@@ -82,12 +96,10 @@ const LogIn = ({ setVisible, visible }) => {
         >
           Se connecter
         </button>
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         <button
           onClick={() => {
-            const newVisible = [...visible];
-            newVisible[0] = !newVisible[0];
-            newVisible[1] = false;
-            setVisible(newVisible);
+            isVisible("1");
           }}
         >
           Pas encore inscrit ? C'est ici !
