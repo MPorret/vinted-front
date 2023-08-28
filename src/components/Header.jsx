@@ -36,6 +36,7 @@ const Header = ({ token, handleToken, isVisible, search, setSearch }) => {
           onClick={() => {
             handleToken();
           }}
+          className="deconnect"
         >
           Se déconnecter
         </button>

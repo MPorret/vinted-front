@@ -81,7 +81,6 @@ main.home {
 
 .allproducts {
   flex-wrap: wrap;
-  justify-content: space-between;
   gap: 20px;
 
   & > a {
@@ -95,6 +94,7 @@ article {
     align-items: center;
     padding: 10px;
     font-size: 10px;
+    height: 30px;
     gap: 10px;
     justify-content: center;
   }

@@ -34,6 +34,7 @@ const Home = ({ search }) => {
         console.log(error.message);
       }
     };
+    console.log(price.values[0]);
 
     fetchData();
   }, [sort, price, search]);
@@ -51,7 +52,7 @@ const Home = ({ search }) => {
         <img src={tear} alt="tear" className="tear" />
         <div>
           <h1>Prêts à faire du tri dans vos placards ?</h1>
-          <Link>Commencer à vendre</Link>
+          <Link to="/publish">Commencer à vendre</Link>
         </div>
       </div>
       {/* List of products */}
@@ -72,7 +73,7 @@ const Home = ({ search }) => {
                   <div>
                     {owner.account.avatar && (
                       <img
-                        src={owner.account.avatar.secure_url}
+                        src={owner.account.avatar["0"].secure_url}
                         alt=""
                         className="avatar"
                       />

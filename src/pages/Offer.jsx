@@ -32,7 +32,7 @@ const Offer = () => {
   return isLoading ? (
     <Loading />
   ) : (
-    <main>
+    <main className="offer">
       <section className="carousel">
         {data.product_image.lenght !== 1 ? (
           data.product_image.map(({ secure_url }) => {

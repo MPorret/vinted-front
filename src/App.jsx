@@ -9,9 +9,9 @@ import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 // Import pages
 import Home from "./pages/Home";
 import Offer from "./pages/Offer";
-import SignUp from "./pages/SignUp";
-import LogIn from "./pages/LogIn";
-import Add from "./pages/Add";
+import SignUp from "./components/SignUp";
+import LogIn from "./components/LogIn";
+import Publish from "./pages/Publish";
 
 import Header from "./components/Header";
 
@@ -52,7 +52,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home search={search} />} />
         <Route path="/offer/:id" element={<Offer />} />
-        <Route path="/publish" element={<Add token={token} />} />
+        <Route
+          path="/publish"
+          element={<Publish token={token} isVisible={isVisible} />}
+        />
       </Routes>
       {visibleSignUp && (
         <SignUp handleToken={handleToken} isVisible={isVisible} />

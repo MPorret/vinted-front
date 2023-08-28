@@ -48,6 +48,10 @@ img {
   object-fit: cover;
 }
 
+:is(a, button, .uploadavatar):hover {
+  cursor: pointer;
+}
+
 /* HEADER */
 header {
   background-color: #ffffff;
@@ -93,6 +97,10 @@ header {
     color: #ffffff;
     border: none;
   }
+
+  button.deconnect {
+    background-color: rgb(163, 48, 48);
+  }
 }
 
 // MODAL
@@ -120,7 +128,8 @@ header {
     position: relative;
   }
 
-  input:not(#newsletter) {
+  input:not(#newsletter),
+  .uploadavatar {
     padding: 10px;
     margin: 10px;
     border-radius: 10px;
@@ -178,5 +187,13 @@ header {
   button:last-of-type:hover {
     color: var(--vinted-blue);
     transition: 25ms;
+  }
+}
+
+.uploadavatar {
+  background-color: rgb(241, 241, 241);
+
+  &:hover {
+    background-color: rgb(248, 247, 247);
   }
 }

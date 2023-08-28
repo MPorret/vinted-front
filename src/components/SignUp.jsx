@@ -1,6 +1,7 @@
 import { useState } from "react";
 // import Cookies from "js-cookie";
 import axios from "axios";
+import Dropzone from "react-dropzone";
 
 const SignUp = ({ handleToken, isVisible }) => {
   const [data, setData] = useState({
@@ -9,6 +10,8 @@ const SignUp = ({ handleToken, isVisible }) => {
     password: "",
     newsletter: false,
   });
+
+  const [file, setFile] = useState({});
 
   const [errorMessage, setErrorMessage] = useState();
 
@@ -36,9 +39,21 @@ const SignUp = ({ handleToken, isVisible }) => {
 
   const signUp = async () => {
     try {
+      const formData = new FormData();
+      formData.append("picture", file);
+      formData.append("username", data.username);
+      formData.append("newsletter", data.newsletter);
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+
       const response = await axios.post(
         "https://site--vinted-backend--hxhcg25qdky2.code.run/user/signup",
-        data
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       handleToken(response.data.token);
       isVisible("0");
@@ -71,6 +86,31 @@ const SignUp = ({ handleToken, isVisible }) => {
           X
         </div>
         <h3>S'inscrire</h3>
+
+        {file.name ? (
+          <div>
+            <p key={file.name}>Avatar : {file.name}</p>
+          </div>
+        ) : (
+          <Dropzone
+            onDrop={(acceptedFiles) => {
+              setFile(acceptedFiles[0]);
+              console.log("ici", file);
+            }}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <section className="uploadavatar">
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} multiple="multiple" />
+                  <p>
+                    Cliquer-glisser votre avatar ici ou cliquer pour
+                    sélectionner l'image
+                  </p>
+                </div>
+              </section>
+            )}
+          </Dropzone>
+        )}
         <input
           type="text"
           name="username"

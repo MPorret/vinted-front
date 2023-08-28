@@ -1,9 +1,12 @@
-import "../assets/styles/add.scss";
+import "../assets/styles/publish.scss";
 import { useState } from "react";
 import Dropzone from "react-dropzone";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const Add = ({ token }) => {
+const Publish = ({ isVisible, token }) => {
+  const navigate = useNavigate();
+
   const [value, setValue] = useState({
     title: "",
     description: "",
@@ -15,8 +18,7 @@ const Add = ({ token }) => {
     color: "",
   });
 
-  const [file, setFile] = useState({});
-  console.log("ici", file);
+  const [file, setFile] = useState([]);
 
   const handleChange = (event, { arg }) => {
     const newObject = { ...value };
@@ -28,7 +30,9 @@ const Add = ({ token }) => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("picture", file);
+    for (let i = 0; i < file.length; i++) {
+      formData.append("picture", file[i]);
+    }
     formData.append("title", value.title);
     formData.append("description", value.description);
     formData.append("size", value.size);
@@ -50,6 +54,19 @@ const Add = ({ token }) => {
         }
       );
       console.log(response);
+      setValue({
+        title: "",
+        description: "",
+        price: "",
+        condition: "",
+        city: "",
+        brand: "",
+        size: "",
+        color: "",
+      });
+      setFile([]);
+
+      navigate(`/offer/${response.data._id}`);
     } catch (error) {
       console.log(error.response.data);
     }
@@ -68,28 +85,31 @@ const Add = ({ token }) => {
             <section>
               <Dropzone
                 onDrop={(acceptedFiles) => {
-                  setFile(acceptedFiles[0]);
+                  const newTab = [...file];
+                  for (let i = 0; i < acceptedFiles.length; i++) {
+                    newTab.push(acceptedFiles[i]);
+                  }
+
+                  setFile(newTab);
                 }}
               >
                 {({ getRootProps, getInputProps }) => (
-                  <section>
-                    <div {...getRootProps()}>
-                      <input {...getInputProps()} />
-                      <p style={{ border: "1px solid black" }}>
-                        Drag 'n' drop some files here, or click to select files
-                      </p>
-                    </div>
-                  </section>
+                  <div {...getRootProps()} className="upload">
+                    <input {...getInputProps()} multiple="multiple" />
+                    <p style={{ textAlign: "center" }}>
+                      Cliquer-glisser vos images ici ou cliquer pour
+                      sélectionner les fichiers
+                    </p>
+                  </div>
                 )}
               </Dropzone>
-              {/* <input
-                type="file"
-                name="picture"
-                id="picture"
-                onChange={(event) => {
-                  setFile(event.target.files[0]);
-                }}
-              /> */}
+              {file.length > 0 && (
+                <div>
+                  {file.map((file) => {
+                    return <p key={file.name}>{file.name}</p>;
+                  })}
+                </div>
+              )}
             </section>
             <section>
               <label htmlFor="title">Titre</label>
@@ -184,13 +204,26 @@ const Add = ({ token }) => {
                   handleChange(event, { arg: "price" });
                 }}
               />
-              €
             </section>
             <button>Ajouter</button>
           </>
         ) : (
-          <section>
+          <section className="notconnected">
             <h2>Vous devez être connecté pour vendre vos articles</h2>
+            <button
+              onClick={() => {
+                isVisible("0");
+              }}
+            >
+              S'inscrire
+            </button>
+            <button
+              onClick={() => {
+                isVisible("1");
+              }}
+            >
+              Se connecter
+            </button>
           </section>
         )}
       </form>
@@ -198,4 +231,4 @@ const Add = ({ token }) => {
   );
 };
 
-export default Add;
+export default Publish;
