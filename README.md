@@ -1,8 +1,19 @@
-# React + Vite
+# Vinted
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React (useEffect & useState), Sass, Axios
 
-Currently, two official plugins are available:
+## Homepage
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Show all offers with filters (search by title or description, sort and price range)
+
+Package used :
+<a href="https://github.com/markusenglund/react-switch" target="_blank">react-switch</a>
+Range-react
+
+## See an offer
+
+## SignUp
+
+## LogIn
+
+## Add an offer
