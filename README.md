@@ -22,7 +22,7 @@ Show the offer selected by id in URL
 
 ## SignUp
 
-Create a new user. Show a message error if :
+Create a new user. Show an error message if :
 
 - a field is empty
 - the email address is already used
@@ -31,7 +31,7 @@ Create a new user. Show a message error if :
 
 ## LogIn
 
-Log the user with email address and password. Show a message error if :
+Log the user with email address and password. Show an error message if :
 
 - a field is empty
 - the email address or password is incorrect

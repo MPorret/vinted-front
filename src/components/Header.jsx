@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+// import { useState } from "react";
 
 const Header = ({ token, handleToken, isVisible, search, setSearch }) => {
   return (
@@ -40,7 +40,7 @@ const Header = ({ token, handleToken, isVisible, search, setSearch }) => {
           Se déconnecter
         </button>
       )}
-      <Link>Vends tes articles</Link>
+      <Link to="/publish">Vends tes articles</Link>
     </header>
   );
 };
