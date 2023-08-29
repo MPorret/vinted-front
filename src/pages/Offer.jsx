@@ -45,34 +45,41 @@ const Offer = () => {
       <aside>
         <section>
           <h2>{data.product_price} €</h2>
-          <Link>Acheter</Link>
+          <Link
+            to="/paiement"
+            state={{
+              name: data.product_name,
+              price: data.product_price,
+              productId: id,
+            }}
+          >
+            Acheter
+          </Link>
           <Link>Faire une offre</Link>
           <Link>Message</Link>
           <Link>Favoris</Link>
         </section>
         <section>
-          {data.product_details.map((detail) => {
-            if (detail[Object.keys(detail)]) {
-              return (
-                <div key={Object.keys(detail)}>
-                  <span>{Object.keys(detail)} :</span>
-                  <span>{detail[Object.keys(detail)]}</span>
-                </div>
-              );
-            } else {
-              return null;
-            }
-          })}
-          <div>
-            <span>AJOUTE :</span>
-            <span>{data.product_date}</span>
-          </div>
-        </section>
-        {data.product_description && (
           <section>
-            <p>{data.product_description}</p>
+            {data.product_details.map((detail) => {
+              if (detail[Object.keys(detail)]) {
+                return (
+                  <div key={Object.keys(detail)}>
+                    <span>{Object.keys(detail)} :</span>
+                    <span>{detail[Object.keys(detail)]}</span>
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            })}
           </section>
-        )}
+          {data.product_description && (
+            <section>
+              <p>{data.product_description}</p>
+            </section>
+          )}
+        </section>
       </aside>
     </main>
   );

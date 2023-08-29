@@ -4,25 +4,30 @@ import Cookies from "js-cookie";
 import "./App.scss";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUp,
+  faArrowDown,
+  faUser,
+  faPowerOff,
+} from "@fortawesome/free-solid-svg-icons";
 
 // Import pages
 import Home from "./pages/Home";
 import Offer from "./pages/Offer";
-import SignUp from "./components/SignUp";
-import LogIn from "./components/LogIn";
 import Publish from "./pages/Publish";
+import Paiement from "./pages/Paiement";
 
 import Header from "./components/Header";
+import Modal from "./components/Modal";
+import Footer from "./components/Footer";
 
-library.add(faArrowUp, faArrowDown);
+library.add(faArrowUp, faArrowDown, faUser, faPowerOff);
 
 function App() {
-  const [visible, setVisible] = useState([false, false]);
+  const [visible, setVisible] = useState(false);
+  const [isModal, setIsModal] = useState(false);
   const [token, setToken] = useState(Cookies.get("token") || null);
   const [search, setSearch] = useState("");
-
-  const [visibleSignUp, visibleLogIn] = visible;
 
   const handleToken = (token) => {
     if (token) {
@@ -34,10 +39,8 @@ function App() {
     }
   };
 
-  const isVisible = (i) => {
-    const newVisible = [...visible];
-    newVisible[i] = !newVisible[i];
-    setVisible(newVisible);
+  const isVisible = () => {
+    setVisible(!visible);
   };
 
   return (
@@ -45,23 +48,35 @@ function App() {
       <Header
         token={token}
         handleToken={handleToken}
-        isVisible={isVisible}
         search={search}
         setSearch={setSearch}
+        setIsModal={setIsModal}
       />
       <Routes>
         <Route path="/" element={<Home search={search} />} />
         <Route path="/offer/:id" element={<Offer />} />
         <Route
           path="/publish"
-          element={<Publish token={token} isVisible={isVisible} />}
+          element={
+            <Publish
+              token={token}
+              isVisible={isVisible}
+              handleToken={handleToken}
+              visible={visible}
+              setIsModal={setIsModal}
+            />
+          }
         />
+        <Route path="/paiement" element={<Paiement token={token} />} />
       </Routes>
-      {visibleSignUp && (
-        <SignUp handleToken={handleToken} isVisible={isVisible} />
-      )}
-      {visibleLogIn && (
-        <LogIn handleToken={handleToken} isVisible={isVisible} />
+      <Footer />
+      {isModal && (
+        <Modal
+          handleToken={handleToken}
+          isVisible={isVisible}
+          visible={visible}
+          setIsModal={setIsModal}
+        />
       )}
     </Router>
   );

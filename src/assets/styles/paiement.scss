@@ -1,0 +1,52 @@
+main.pay {
+  max-width: 800px;
+  margin: 20px 20px;
+
+  section {
+    background-color: #fff;
+    padding: 10px 20px;
+  }
+
+  div:not(.StripeElement) {
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  section:not(:nth-of-type(n + 2)) {
+    color: var(--grey);
+  }
+
+  section:nth-of-type(2) {
+    border-top: 1px solid lightgrey;
+  }
+
+  div.StripeElement {
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px lightgrey;
+  }
+
+  .bold {
+    font-weight: 700;
+  }
+
+  form {
+    text-align: center;
+  }
+
+  button {
+    border: none;
+    background-color: var(--vinted-blue);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+
+    &:disabled,
+    &[disabled] {
+      background-color: grey;
+      cursor: auto;
+    }
+  }
+}

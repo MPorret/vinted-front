@@ -1,5 +1,6 @@
 .add {
   max-width: 600px;
+  padding: 0 20px;
 
   h1 {
     margin: 20px 0;
@@ -12,7 +13,7 @@
     align-items: center;
   }
 
-  section {
+  section:not(.form) {
     display: flex;
     flex-wrap: wrap;
     background-color: #ffffff;
@@ -22,13 +23,17 @@
     gap: 20px;
     width: 100%;
   }
-  label,
-  input {
+
+  label:not(#newsletter),
+  input:not(#newsletter),
+  textarea {
     width: calc(50% - 10px);
     padding: 10px 0;
+    font-family: inherit;
   }
 
-  input {
+  input,
+  textarea {
     border: none;
     border-bottom: 1px solid lightgrey;
   }
@@ -60,7 +65,7 @@
     }
   }
 
-  label {
+  label:not(#newsletter) {
     font-size: 16px;
     font-weight: 700;
   }

@@ -54,58 +54,56 @@ const LogIn = ({ handleToken, isVisible }) => {
   };
 
   return (
-    <div className="modal">
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+      }}
+    >
+      {/* <div
+        className="close"
+        onClick={() => {
+          isVisible("1");
         }}
       >
-        <div
-          className="close"
-          onClick={() => {
-            isVisible("1");
-          }}
-        >
-          X
-        </div>
-        <h3>Se connecter</h3>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Email"
-          value={data.email}
-          onChange={(event) => {
-            handleChange(event, { action: "email" });
-          }}
-        />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Mot de passe"
-          value={data.password}
-          onChange={(event) => {
-            handleChange(event, { action: "password" });
-          }}
-        />
-        <button
-          onClick={() => {
-            logIn();
-          }}
-        >
-          Se connecter
-        </button>
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-        <button
-          onClick={() => {
-            isVisible("1");
-          }}
-        >
-          Pas encore inscrit ? C'est ici !
-        </button>
-      </form>
-    </div>
+        X
+      </div> */}
+      <h3>Se connecter</h3>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Email"
+        value={data.email}
+        onChange={(event) => {
+          handleChange(event, { action: "email" });
+        }}
+      />
+      <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Mot de passe"
+        value={data.password}
+        onChange={(event) => {
+          handleChange(event, { action: "password" });
+        }}
+      />
+      <button
+        onClick={() => {
+          logIn();
+        }}
+      >
+        Se connecter
+      </button>
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+      <button
+        onClick={() => {
+          isVisible("1");
+        }}
+      >
+        Pas encore inscrit ? C'est ici !
+      </button>
+    </form>
   );
 };
 

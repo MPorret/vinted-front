@@ -29,10 +29,16 @@ body {
 }
 
 h1 {
-  font-size: 2.4rem;
+  font-size: 1.9rem;
 }
 h2 {
   font-size: 1.4rem;
+}
+h3 {
+  font-size: 2.4rem;
+  color: var(--vinted-blue);
+  font-weight: bold;
+  text-align: center;
 }
 
 a {
@@ -40,16 +46,13 @@ a {
   color: inherit;
 }
 
-a:hover {
-  cursor: pointer;
-}
-
 img {
   object-fit: cover;
 }
 
-:is(a, button, .uploadavatar):hover {
+:is(a, button, .uploadavatar, .upload):hover {
   cursor: pointer;
+  transition: 25ms;
 }
 
 /* HEADER */
@@ -63,7 +66,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 1;
+  z-index: 2;
 
   & img {
     width: 73px;
@@ -89,6 +92,12 @@ header {
     border: 1px solid var(--vinted-blue);
     color: var(--vinted-blue);
     background-color: #ffffff;
+    width: 200px;
+
+    &:hover {
+      background-color: #1799a5;
+      color: #fff;
+    }
   }
 
   & > a:last-of-type,
@@ -96,10 +105,23 @@ header {
     background-color: var(--vinted-blue);
     color: #ffffff;
     border: none;
+    &:hover {
+      background-color: #1799a5;
+    }
   }
 
-  button.deconnect {
+  a:last-of-type {
+    margin-right: 20px;
+  }
+
+  button.disconnect {
     background-color: rgb(163, 48, 48);
+    border: none;
+    color: #fff;
+
+    &:hover {
+      background-color: rgb(130, 28, 28);
+    }
   }
 }
 
@@ -116,9 +138,9 @@ header {
   justify-content: center;
   align-items: center;
 
-  form {
+  & > div {
     background-color: #ffffff;
-    padding: 20px 10px;
+    padding: 20px 20px;
     border-radius: 10px;
     width: 400px;
     display: flex;
@@ -126,22 +148,6 @@ header {
     align-items: center;
     gap: 10px;
     position: relative;
-  }
-
-  input:not(#newsletter),
-  .uploadavatar {
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
-    border: 1px solid var(--vinted-blue);
-    width: 80%;
-  }
-
-  h3 {
-    font-size: 2.4rem;
-    color: var(--vinted-blue);
-    font-weight: bold;
-    text-align: center;
   }
 
   .close {
@@ -157,16 +163,26 @@ header {
     cursor: pointer;
   }
 
-  button {
-    background-color: #ffffff;
-    border: none;
-  }
-
-  button:first-of-type {
+  form > button:first-of-type {
     border-radius: 10px;
     background-color: var(--vinted-blue);
     padding: 10px 30px;
     color: #ffffff;
+    border: none;
+
+    &:hover {
+      background-color: #1799a5;
+    }
+  }
+}
+
+section.form {
+  display: flex;
+  width: 100%;
+  padding: 0;
+
+  button {
+    background-color: #ffffff;
     border: none;
   }
 
@@ -176,24 +192,124 @@ header {
     gap: 10px;
   }
 
+  & > button {
+    flex: 1;
+    padding: 10px 0;
+    border-radius: 10px 10px 0 0;
+    background-color: #ebf1f2;
+    color: grey;
+
+    &:hover {
+      background-color: #1799a5;
+      box-shadow: 0 -5px 5px lightgrey;
+      color: #fff;
+    }
+
+    &:disabled,
+    &[disabled] {
+      background-color: #fff;
+      box-shadow: 0 -5px 5px lightgrey;
+      z-index: 1;
+      color: lightgrey;
+    }
+  }
+
+  & + form {
+    background-color: #ffffff;
+    padding: 20px 10px;
+    border-radius: 10px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    input:not(#newsletter) {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      border: 1px solid var(--vinted-blue);
+      width: 80%;
+    }
+
+    section.uploadavatar {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      width: 80%;
+      border: 2px dashed lightgrey;
+
+      &:hover {
+        border-color: var(--vinted-blue);
+      }
+    }
+  }
+
   p,
-  button:last-of-type {
+  & + form > button:last-of-type {
     color: var(--grey);
     font-size: 12px;
     padding: 0 20px;
     text-align: center;
+    background-color: #fff;
   }
 
-  button:last-of-type:hover {
+  & + form > button:last-of-type:hover {
     color: var(--vinted-blue);
     transition: 25ms;
   }
 }
 
-.uploadavatar {
-  background-color: rgb(241, 241, 241);
+.smallscreen {
+  display: none;
+}
 
-  &:hover {
-    background-color: rgb(248, 247, 247);
+//  FOOTER
+footer {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    color: var(--vinted-blue);
+
+    &:hover {
+      color: #1799a5;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  header {
+    button {
+      width: auto;
+      padding: 10px 20px;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  header {
+    .bigscreen {
+      display: none;
+    }
+
+    .smallscreen {
+      display: inline;
+      margin-right: 10px;
+    }
+
+    input {
+      margin-right: 10px;
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  header {
+    input {
+      width: 180px;
+    }
   }
 }

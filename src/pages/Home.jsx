@@ -12,6 +12,7 @@ const Home = ({ search }) => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
+  const [page, setPage] = useState(1);
   const [sort, setSort] = useState(false);
   const [price, setPrice] = useState({ values: [0, 100] });
 
@@ -20,7 +21,7 @@ const Home = ({ search }) => {
       try {
         const timer = setTimeout(async () => {
           const response = await axios.get(
-            `https://site--vinted-backend--hxhcg25qdky2.code.run/offers?page=1&sort=${
+            `https://site--vinted-backend--hxhcg25qdky2.code.run/offers?page=${page}&sort=${
               !sort ? "asc" : "desc"
             }&priceMin=${price.values[0]}&priceMax=${
               price.values[1]
@@ -34,10 +35,9 @@ const Home = ({ search }) => {
         console.log(error.message);
       }
     };
-    console.log(price.values[0]);
 
     fetchData();
-  }, [sort, price, search]);
+  }, [sort, price, search, page]);
 
   return isLoading ? (
     <Loading />
@@ -50,7 +50,7 @@ const Home = ({ search }) => {
           alt="Dressing avec une femme souriante"
         />
         <img src={tear} alt="tear" className="tear" />
-        <div>
+        <div className="startsell">
           <h1>Prêts à faire du tri dans vos placards ?</h1>
           <Link to="/publish">Commencer à vendre</Link>
         </div>
@@ -99,6 +99,18 @@ const Home = ({ search }) => {
             );
           }
         )}
+      </section>
+      <section className="page">
+        <label htmlFor="page">Page :</label>
+        <input
+          type="number"
+          name="page"
+          id="page"
+          value={page}
+          onChange={(event) => {
+            setPage(event.target.value);
+          }}
+        />
       </section>
     </main>
   );

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { useState } from "react";
 
-const Header = ({ token, handleToken, isVisible, search, setSearch }) => {
+const Header = ({ token, handleToken, setIsModal, search, setSearch }) => {
   return (
     <header>
       <Link to="/">
@@ -17,29 +18,42 @@ const Header = ({ token, handleToken, isVisible, search, setSearch }) => {
       {!token ? (
         <>
           <button
+            className="bigscreen"
             onClick={() => {
-              isVisible("0");
+              setIsModal(true);
             }}
           >
-            S'inscrire
+            Se connecter / S'inscrire
           </button>
           <button
             onClick={() => {
-              isVisible("1");
+              setIsModal(true);
             }}
+            className="smallscreen"
           >
-            Se connecter
+            <FontAwesomeIcon icon="user" />
           </button>
         </>
       ) : (
-        <button
-          onClick={() => {
-            handleToken();
-          }}
-          className="deconnect"
-        >
-          Se déconnecter
-        </button>
+        <>
+          {" "}
+          <button
+            onClick={() => {
+              handleToken();
+            }}
+            className="disconnect bigscreen"
+          >
+            Se déconnecter
+          </button>
+          <button
+            onClick={() => {
+              handleToken();
+            }}
+            className="smallscreen disconnect"
+          >
+            <FontAwesomeIcon icon="power-off" />
+          </button>
+        </>
       )}
       <Link to="/publish">Vends tes articles</Link>
     </header>

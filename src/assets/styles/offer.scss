@@ -38,7 +38,7 @@ aside {
     color: var(--grey);
   }
 
-  section:nth-of-type(2) > div {
+  section:nth-of-type(1) > div {
     display: flex;
     justify-content: space-between;
   }
@@ -61,5 +61,42 @@ aside {
   & a:nth-of-type(1) {
     background-color: var(--vinted-blue);
     color: #ffffff;
+  }
+}
+
+@media (max-width: 1024px) {
+  main.offer {
+    flex-direction: column;
+    padding: 0 20px;
+    width: 100vw;
+
+    .carousel {
+      height: 50vh;
+    }
+    img {
+      height: 50vh;
+    }
+
+    aside {
+      width: 100%;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      gap: 50px;
+    }
+    section:nth-of-type(1) {
+      flex: 1;
+    }
+    aside > section:nth-of-type(2) {
+      flex: 2;
+      border: none;
+
+      section {
+        flex: 1;
+      }
+
+      & > section:first-child {
+        border: none;
+      }
+    }
   }
 }

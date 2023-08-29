@@ -71,110 +71,110 @@ const SignUp = ({ handleToken, isVisible }) => {
   };
 
   return (
-    <div className="modal">
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+      }}
+    >
+      {/* <div
+        className="close"
+        onClick={() => {
+          isVisible("0");
         }}
       >
-        <div
-          className="close"
-          onClick={() => {
-            isVisible("0");
-          }}
-        >
-          X
-        </div>
-        <h3>S'inscrire</h3>
+        X
+      </div> */}
+      <h3>S'inscrire</h3>
 
-        {file.name ? (
-          <div>
-            <p key={file.name}>Avatar : {file.name}</p>
-          </div>
-        ) : (
-          <Dropzone
-            onDrop={(acceptedFiles) => {
-              setFile(acceptedFiles[0]);
-              console.log("ici", file);
-            }}
-          >
-            {({ getRootProps, getInputProps }) => (
-              <section className="uploadavatar">
-                <div {...getRootProps()}>
-                  <input {...getInputProps()} multiple="multiple" />
-                  <p>
-                    Cliquer-glisser votre avatar ici ou cliquer pour
-                    sélectionner l'image
-                  </p>
-                </div>
-              </section>
-            )}
-          </Dropzone>
-        )}
-        <input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="Nom d'utilisateur"
-          value={data.username}
-          onChange={(event) => {
-            handleChange(event, { action: "username" });
-          }}
-        />
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Email"
-          value={data.email}
-          onChange={(event) => {
-            handleChange(event, { action: "email" });
-          }}
-        />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Mot de passe"
-          value={data.password}
-          onChange={(event) => {
-            handleChange(event, { action: "password" });
-          }}
-        />
+      {file.name ? (
         <div>
-          <input
-            type="checkbox"
-            name="newsletter"
-            id="newsletter"
-            checked={data.newsletter}
-            onChange={(event) => {
-              handleChange(event, { action: "newsletter" });
-            }}
-          />
-          <label htmlFor="newsletter">S'inscrire à la newsletter</label>
+          <p key={file.name}>Avatar : {file.name}</p>
         </div>
-        <p>
-          En m'inscrivant je confirme avoir lu et accepté les Termes &
-          Conditions et Potilique de Confidentialité de Vinted. Je confirme
-          avoir au moins 18 ans.
-        </p>
-        <button
-          onClick={() => {
-            signUp();
+      ) : (
+        <Dropzone
+          onDrop={(acceptedFiles) => {
+            setFile(acceptedFiles[0]);
+            console.log("ici", file);
           }}
         >
-          S'inscrire
-        </button>
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-        <button
-          onClick={() => {
-            isVisible("0");
+          {({ getRootProps, getInputProps }) => (
+            <section className="uploadavatar">
+              <div {...getRootProps()}>
+                <input {...getInputProps()} multiple="multiple" />
+                <p>
+                  Cliquer-glisser votre avatar ici ou cliquer pour sélectionner
+                  l'image
+                </p>
+              </div>
+            </section>
+          )}
+        </Dropzone>
+      )}
+      <input
+        type="text"
+        name="username"
+        id="username"
+        placeholder="Nom d'utilisateur"
+        value={data.username}
+        onChange={(event) => {
+          handleChange(event, { action: "username" });
+        }}
+      />
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Email"
+        value={data.email}
+        onChange={(event) => {
+          handleChange(event, { action: "email" });
+        }}
+      />
+      <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Mot de passe"
+        value={data.password}
+        onChange={(event) => {
+          handleChange(event, { action: "password" });
+        }}
+      />
+      <div>
+        <input
+          type="checkbox"
+          name="newsletter"
+          id="newsletter"
+          checked={data.newsletter}
+          onChange={(event) => {
+            handleChange(event, { action: "newsletter" });
           }}
-        >
-          Tu as déjà un compte ? Connecte-toi !
-        </button>
-      </form>
-    </div>
+        />
+        <label htmlFor="newsletter" id="newsletter">
+          S'inscrire à la newsletter
+        </label>
+      </div>
+      <p>
+        En m'inscrivant je confirme avoir lu et accepté les Termes & Conditions
+        et Potilique de Confidentialité de Vinted. Je confirme avoir au moins 18
+        ans.
+      </p>
+      <button
+        onClick={() => {
+          signUp();
+        }}
+      >
+        S'inscrire
+      </button>
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+      <button
+        onClick={() => {
+          isVisible("0");
+        }}
+      >
+        Tu as déjà un compte ? Connecte-toi !
+      </button>
+    </form>
   );
 };
 
