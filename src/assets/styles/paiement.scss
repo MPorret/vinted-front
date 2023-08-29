@@ -36,7 +36,8 @@ main.pay {
     text-align: center;
   }
 
-  button {
+  .paiement button,
+  form button {
     border: none;
     background-color: var(--vinted-blue);
     color: #fff;

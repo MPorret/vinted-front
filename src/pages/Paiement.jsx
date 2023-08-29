@@ -3,13 +3,16 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/CheckOutForm";
 import { useLocation } from "react-router-dom";
 
+import SignUp from "../components/SignUp";
+import LogIn from "../components/LogIn";
+
 import "../assets/styles/paiement.scss";
 
 const stripePromise = loadStripe(
   "pk_test_51NkP2BCogNykTAl5acaJESspG3j5tf4kW5xVUEqz6uyXllyA3LZ2x82MhytN8nF5SM21IWZfz9sVRUvXQEp7p3L100DraGGnGQ"
 );
 
-const Paiement = ({ token }) => {
+const Paiement = ({ isVisible, token, handleToken, visible }) => {
   const location = useLocation();
   const { price, name, productId } = location.state;
   const productPrice = (Math.round(price * 100) / 100).toFixed(2);
@@ -23,7 +26,7 @@ const Paiement = ({ token }) => {
     <main className="pay">
       {token ? (
         <>
-          <section>
+          <section className="paiement">
             <h2>Résumé de la commande</h2>
             <div>
               <span>Prix de l'article</span>

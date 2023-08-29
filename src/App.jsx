@@ -67,7 +67,18 @@ function App() {
             />
           }
         />
-        <Route path="/paiement" element={<Paiement token={token} />} />
+        <Route
+          path="/paiement"
+          element={
+            <Paiement
+              token={token}
+              isVisible={isVisible}
+              handleToken={handleToken}
+              visible={visible}
+              setIsModal={setIsModal}
+            />
+          }
+        />
       </Routes>
       <Footer />
       {isModal && (
