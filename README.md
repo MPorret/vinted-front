@@ -20,7 +20,7 @@ Packages used :
 
 Show the offer selected by id in URL
 
-<img src=".src/assets/Capture d’écran 2023-10-26 à 10.22.19.png">
+<img src=".src/assets/see-article.png">
 
 ## SignUp
 
