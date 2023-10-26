@@ -20,7 +20,7 @@ Packages used :
 
 Show the offer selected by id in URL
 
-<img src=".src/assets/see-article.png">
+<img src="./src/assets/see-article.png">
 
 ## SignUp
 
