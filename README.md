@@ -20,6 +20,8 @@ Packages used :
 
 Show the offer selected by id in URL
 
+<img src=".src/assets/Capture d’écran 2023-10-26 à 10.22.19.png">
+
 ## SignUp
 
 Create a new user. Show an error message if :
@@ -39,6 +41,12 @@ Log the user with email address and password. Show an error message if :
 <img src="./src/assets/login-screenshot.png">
 
 ## Add an offer
+
+Form to add an offer :
+- upload images
+- add a title, description and product info
+
+<img src="./src/assets/add-article.jpeg">
 
 Packages used :
 <a href="#" target="_blank">cloudinary</a>
